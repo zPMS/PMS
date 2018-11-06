@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pms.dao.CarInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.pms.pojo.CarInfo" >
+    <id column="userID" property="userid" jdbcType="INTEGER" />
+    <id column="userCarID" property="usercarid" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    userID,userTel,userCarID, create_time, last_modify_time
+  </sql>
+  <sql id="Query_User_CarID">
+  userCarID
+  </sql>
+  <select id="getUserCarID" resultType="com.pms.modal.CarID" parameterType="String">
+  select 
+    <include refid="Query_User_CarID" />
+    from car_info
+    where userTel=#{userTel,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.pms.pojo.CarInfoKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from car_info
+    where userID = #{userid,jdbcType=INTEGER}
+      and userCarID = #{usercarid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.pms.pojo.CarInfoKey" >
+    delete from car_info
+    where userID = #{userid,jdbcType=INTEGER}
+      and userCarID = #{usercarid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.pms.pojo.CarInfo" >
+    insert into car_info (userID, userCarID, create_time, 
+      last_modify_time)
+    values (#{userid,jdbcType=INTEGER}, #{usercarid,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{lastModifyTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pms.pojo.CarInfo" >
+    insert into car_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userID,
+      </if>
+      <if test="usercarid != null" >
+        userCarID,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="usercarid != null" >
+        #{usercarid,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pms.pojo.CarInfo" >
+    update car_info
+    <set >
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where userID = #{userid,jdbcType=INTEGER}
+      and userCarID = #{usercarid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pms.pojo.CarInfo" >
+    update car_info
+    set create_time = #{createTime,jdbcType=BIGINT},
+      last_modify_time = #{lastModifyTime,jdbcType=BIGINT}
+    where userID = #{userid,jdbcType=INTEGER}
+      and userCarID = #{usercarid,jdbcType=VARCHAR}
+  </update>
+</mapper>
