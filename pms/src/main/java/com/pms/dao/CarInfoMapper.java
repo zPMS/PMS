@@ -16,6 +16,7 @@ public interface CarInfoMapper {
     CarInfo selectByPrimaryKey(CarInfoKey key);
     
     List<CarID> getUserCarId(String userTel);
+    
     int updateByPrimaryKeySelective(CarInfo record);
 
     int updateByPrimaryKey(CarInfo record);

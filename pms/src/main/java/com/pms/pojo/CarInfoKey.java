@@ -1,16 +1,16 @@
 package com.pms.pojo;
 
 public class CarInfoKey {
-    private Integer userid;
+    private String userid;
 
     private String usercarid;
 
-    public Integer getUserid() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUserid(String userid) {
+        this.userid = userid == null ? null : userid.trim();
     }
 
     public String getUsercarid() {

@@ -2,37 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.pms.dao.UserInfoMapper" >
   <resultMap id="BaseResultMap" type="com.pms.pojo.UserInfo" >
-    <id column="userID" property="userid" jdbcType="INTEGER" />
+    <id column="userID" property="userid" jdbcType="VARCHAR" />
     <result column="userTel" property="usertel" jdbcType="VARCHAR" />
     <result column="validate_code" property="validateCode" jdbcType="VARCHAR" />
     <result column="sms" property="sms" jdbcType="VARCHAR" />
-    <result column="dead_line" property="deadLine" jdbcType="BIGINT" />
-    <result column="usable" property="usable" jdbcType="DECIMAL" />
-    <result column="sended" property="sended" jdbcType="DECIMAL" />
-    <result column="create_time" property="createTime" jdbcType="BIGINT" />
-    <result column="last_modify_time" property="lastModifyTime" jdbcType="BIGINT" />
+    <result column="dead_line" property="deadLine" jdbcType="TIMESTAMP" />
+    <result column="usable" property="usable" jdbcType="BIT" />
+    <result column="sended" property="sended" jdbcType="BIT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
     userID, userTel, validate_code, sms, dead_line, usable, sended, create_time, last_modify_time
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from user_info
-    where userID = #{userid,jdbcType=INTEGER}
+    where userID = #{userid,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from user_info
-    where userID = #{userid,jdbcType=INTEGER}
+    where userID = #{userid,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.pms.pojo.UserInfo" >
     insert into user_info (userID, userTel, validate_code, 
       sms, dead_line, usable, 
       sended, create_time, last_modify_time
       )
-    values (#{userid,jdbcType=INTEGER}, #{usertel,jdbcType=VARCHAR}, #{validateCode,jdbcType=VARCHAR}, 
-      #{sms,jdbcType=VARCHAR}, #{deadLine,jdbcType=BIGINT}, #{usable,jdbcType=DECIMAL}, 
-      #{sended,jdbcType=DECIMAL}, #{createTime,jdbcType=BIGINT}, #{lastModifyTime,jdbcType=BIGINT}
+    values (#{userid,jdbcType=VARCHAR}, #{usertel,jdbcType=VARCHAR}, #{validateCode,jdbcType=VARCHAR}, 
+      #{sms,jdbcType=VARCHAR}, #{deadLine,jdbcType=TIMESTAMP}, #{usable,jdbcType=BIT}, 
+      #{sended,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.pms.pojo.UserInfo" >
@@ -68,7 +68,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userid != null" >
-        #{userid,jdbcType=INTEGER},
+        #{userid,jdbcType=VARCHAR},
       </if>
       <if test="usertel != null" >
         #{usertel,jdbcType=VARCHAR},
@@ -80,19 +80,19 @@
         #{sms,jdbcType=VARCHAR},
       </if>
       <if test="deadLine != null" >
-        #{deadLine,jdbcType=BIGINT},
+        #{deadLine,jdbcType=TIMESTAMP},
       </if>
       <if test="usable != null" >
-        #{usable,jdbcType=DECIMAL},
+        #{usable,jdbcType=BIT},
       </if>
       <if test="sended != null" >
-        #{sended,jdbcType=DECIMAL},
+        #{sended,jdbcType=BIT},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=BIGINT},
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="lastModifyTime != null" >
-        #{lastModifyTime,jdbcType=BIGINT},
+        #{lastModifyTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -109,33 +109,33 @@
         sms = #{sms,jdbcType=VARCHAR},
       </if>
       <if test="deadLine != null" >
-        dead_line = #{deadLine,jdbcType=BIGINT},
+        dead_line = #{deadLine,jdbcType=TIMESTAMP},
       </if>
       <if test="usable != null" >
-        usable = #{usable,jdbcType=DECIMAL},
+        usable = #{usable,jdbcType=BIT},
       </if>
       <if test="sended != null" >
-        sended = #{sended,jdbcType=DECIMAL},
+        sended = #{sended,jdbcType=BIT},
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=BIGINT},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="lastModifyTime != null" >
-        last_modify_time = #{lastModifyTime,jdbcType=BIGINT},
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where userID = #{userid,jdbcType=INTEGER}
+    where userID = #{userid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.pms.pojo.UserInfo" >
     update user_info
     set userTel = #{usertel,jdbcType=VARCHAR},
       validate_code = #{validateCode,jdbcType=VARCHAR},
       sms = #{sms,jdbcType=VARCHAR},
-      dead_line = #{deadLine,jdbcType=BIGINT},
-      usable = #{usable,jdbcType=DECIMAL},
-      sended = #{sended,jdbcType=DECIMAL},
-      create_time = #{createTime,jdbcType=BIGINT},
-      last_modify_time = #{lastModifyTime,jdbcType=BIGINT}
-    where userID = #{userid,jdbcType=INTEGER}
+      dead_line = #{deadLine,jdbcType=TIMESTAMP},
+      usable = #{usable,jdbcType=BIT},
+      sended = #{sended,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP}
+    where userID = #{userid,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -4,23 +4,22 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
-import org.json.JSONArray;
 import org.springframework.stereotype.Service;
 import com.pms.dao.CarInfoMapper;
 import com.pms.modal.CarID;
-import com.pms.pojo.CarInfoKey;
-import com.pms.service.getCarID;
+import com.pms.service.GetCarID;
 
 
 @Service
 @Transactional
-public class getCarIdImpl implements getCarID {
+public class GetCarIdImpl implements GetCarID {
 
     @Resource
     public CarInfoMapper carMapper;
-    public CarInfoKey carKey;
-	public List<CarID> getCarId(String userTel) {
-		// TODO 自动生成的方法存根
+    
+	public List<CarID> getCarId(String userTel)
+	{
+		
 		return this.carMapper.getUserCarId(userTel);
 	}
 

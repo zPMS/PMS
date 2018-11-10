@@ -1,7 +1,5 @@
 package com.pms.modal;
 
-import org.json.JSONObject;
-
 public abstract class AbstractJson {
 
 	public int getCode() {
@@ -18,5 +16,5 @@ public abstract class AbstractJson {
 	}
 	private int code;
 	private String message;
-	public abstract JSONObject toJson();
+	public abstract String jsonToString();
 }

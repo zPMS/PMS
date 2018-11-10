@@ -1,31 +1,35 @@
 package com.pms.pojo;
 
+import java.util.Date;
+
 public class CarInfo extends CarInfoKey {
-    private Long createTime;
-    
-    private Long lastModifyTime;
-    private String userTel;
-    public String getUserTel() {
-		return userTel;
-	}
+    private String usertel;
 
-	public void setUserTel(String userTel) {
-		this.userTel = userTel;
-	}
+    private Date createTime;
 
-	public Long getCreateTime() {
+    private Date lastModifyTime;
+
+    public String getUsertel() {
+        return usertel;
+    }
+
+    public void setUsertel(String usertel) {
+        this.usertel = usertel == null ? null : usertel.trim();
+    }
+
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Long createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public Long getLastModifyTime() {
+    public Date getLastModifyTime() {
         return lastModifyTime;
     }
 
-    public void setLastModifyTime(Long lastModifyTime) {
+    public void setLastModifyTime(Date lastModifyTime) {
         this.lastModifyTime = lastModifyTime;
     }
 }

@@ -1,7 +1,9 @@
 package com.pms.pojo;
 
+import java.util.Date;
+
 public class UserInfo {
-    private Integer userid;
+    private String userid;
 
     private String usertel;
 
@@ -9,22 +11,22 @@ public class UserInfo {
 
     private String sms;
 
-    private Long deadLine;
+    private Date deadLine;
 
-    private Short usable;
+    private Boolean usable;
 
-    private Short sended;
+    private Boolean sended;
 
-    private Long createTime;
+    private Date createTime;
 
-    private Long lastModifyTime;
+    private Date lastModifyTime;
 
-    public Integer getUserid() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUserid(String userid) {
+        this.userid = userid == null ? null : userid.trim();
     }
 
     public String getUsertel() {
@@ -51,43 +53,43 @@ public class UserInfo {
         this.sms = sms == null ? null : sms.trim();
     }
 
-    public Long getDeadLine() {
+    public Date getDeadLine() {
         return deadLine;
     }
 
-    public void setDeadLine(Long deadLine) {
+    public void setDeadLine(Date deadLine) {
         this.deadLine = deadLine;
     }
 
-    public Short getUsable() {
+    public Boolean getUsable() {
         return usable;
     }
 
-    public void setUsable(Short usable) {
+    public void setUsable(Boolean usable) {
         this.usable = usable;
     }
 
-    public Short getSended() {
+    public Boolean getSended() {
         return sended;
     }
 
-    public void setSended(Short sended) {
+    public void setSended(Boolean sended) {
         this.sended = sended;
     }
 
-    public Long getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Long createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public Long getLastModifyTime() {
+    public Date getLastModifyTime() {
         return lastModifyTime;
     }
 
-    public void setLastModifyTime(Long lastModifyTime) {
+    public void setLastModifyTime(Date lastModifyTime) {
         this.lastModifyTime = lastModifyTime;
     }
 }

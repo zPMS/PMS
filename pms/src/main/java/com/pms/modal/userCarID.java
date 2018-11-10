@@ -10,14 +10,14 @@ public class userCarID extends AbstractJson
 	private List<CarID> userCarID;
 
 	@Override
-	public JSONObject toJson() {
+	public String jsonToString() {
 		// TODO 自动生成的方法存根
 		JSONObject uCarId=new JSONObject();
 		uCarId.put("code", getCode());
 		uCarId.put("message", getMessage());
 		uCarId.put("userCarId", userCarID);
 		System.out.println(uCarId.toString());
-		return uCarId;
+		return uCarId.toString();
 	}
 
 	public List<CarID> getUserCarID() {
