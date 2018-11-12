@@ -75,6 +75,11 @@
       </if>
     </trim>
   </insert>
+  <update id="updateCarId" >
+  update car_info
+  set userCarID=#{1}
+  where userID=#{0} and userCarID=#{2}
+  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.pms.pojo.CarInfo" >
     update car_info
     <set >

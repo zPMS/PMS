@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.pms.dao.CarInfoMapper;
 import com.pms.pojo.CarInfo;
-import com.pms.service.AddCarId;
+import com.pms.service.AddCarIdService;
 
 @Service
 @Transactional
-public class AddCarIdImpl implements AddCarId
+public class AddCarIdServiceImpl implements AddCarIdService
 {
 	
 	@Resource
@@ -22,8 +22,4 @@ public class AddCarIdImpl implements AddCarId
 		this.carMapper.insert(car);
 		
 	}
-	
-	
-	
-
 }

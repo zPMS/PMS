@@ -13,43 +13,38 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.pms.modal.userCarID;
+import com.pms.modal.ReturnAddCarId;
+import com.pms.modal.ReturnAlterCarId;
+import com.pms.modal.ReturnUserCarID;
 import com.pms.pojo.CarInfo;
-import com.pms.service.AddCarId;
-import com.pms.service.GetCarID;
+import com.pms.service.AddCarIdService;
+import com.pms.service.GetCarIDService;
+import com.pms.service.AlterCarIDService;
 
 @Controller
 @RequestMapping("/car")
 public class CarInfoController 
 {
 	 @Resource
-	 private GetCarID carID;
+	 private GetCarIDService carID;
 	 
 	@RequestMapping("MyCarId")
-	public void getUserCarID(HttpServletRequest request,HttpServletResponse response) 
+	public void getUserCarID(HttpServletRequest request,HttpServletResponse response) throws IOException 
 	{
 		String phone=request.getParameter("userPhone");
 		PrintWriter out;
-		userCarID myCarId=new userCarID();
+		ReturnUserCarID myCarId=new ReturnUserCarID();
 		myCarId.setUserCarID(carID.getCarId(phone));
 		response.setContentType("Application/json");
 		response.setCharacterEncoding("utf-8");
-		myCarId.setCode(response.getStatus());
-		if(response.getStatus()==200)
-			myCarId.setMessage("返回成功");
-		try {
+			myCarId.getStatus(response.getStatus());
 			out=response.getWriter();
 			out.print(myCarId.jsonToString());
-		} catch (IOException e) {
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
-		}
-		
 	}
 	 @Resource
-	 private AddCarId addCarId;
+	 private AddCarIdService addCarId;
 	@RequestMapping("AddCarId")
-	public void addCarID(HttpServletRequest request,HttpServletResponse response)
+	public void addCarID(HttpServletRequest request,HttpServletResponse response) throws IOException
 	{
 		CarInfo car = new CarInfo();
 		car.setUserid(request.getParameter("userId"));
@@ -61,6 +56,25 @@ public class CarInfoController
 		car.setCreateTime(time);
 		car.setLastModifyTime(time);
 		addCarId.addCarId(car);
+		response.setContentType("Application/json");
+		response.setCharacterEncoding("utf-8");
+		ReturnAddCarId r=new ReturnAddCarId();
+		r.getStatus(response.getStatus());
+		PrintWriter out=response.getWriter();
+		out.println(r.jsonToString());
 	}
-
+	 @Resource
+	 private AlterCarIDService alterCarId;
+	 @RequestMapping("AlterCarId")
+		public void alterCarID(HttpServletRequest request,HttpServletResponse response) throws IOException
+		{
+		 	alterCarId.alterCarId(request.getParameter("userId"), request.getParameter("newCarId"), request.getParameter("oldCarId"));
+		 	response.setContentType("Application/json");
+			response.setCharacterEncoding("utf-8");
+			ReturnAlterCarId r=new ReturnAlterCarId();
+			r.getStatus(response.getStatus());
+			PrintWriter out=response.getWriter();
+			out.println(r.jsonToString());
+		}
+	 
 }

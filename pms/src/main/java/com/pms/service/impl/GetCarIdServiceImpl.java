@@ -7,12 +7,12 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import com.pms.dao.CarInfoMapper;
 import com.pms.modal.CarID;
-import com.pms.service.GetCarID;
+import com.pms.service.GetCarIDService;
 
 
 @Service
 @Transactional
-public class GetCarIdImpl implements GetCarID {
+public class GetCarIdServiceImpl implements GetCarIDService {
 
     @Resource
     public CarInfoMapper carMapper;

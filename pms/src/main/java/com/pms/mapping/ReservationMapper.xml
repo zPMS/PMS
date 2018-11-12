@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pms.dao.ReservationMapper" >
+  <resultMap id="Books" type="com.pms.modal.Books" >
+   <id column="reserveID" property="rsvNo" jdbcType="VARCHAR" />
+     <result column="parkID" property="parkNo" jdbcType="VARCHAR" />
+    <result column="parkName" property="parkName" jdbcType="VARCHAR" />
+    <result column="parkAddress" property="parkAddress" jdbcType="VARCHAR" />
+    <result column="parkPositionID" property="parkPositionId" jdbcType="VARCHAR" />
+    <result column="reserve_start_time" property="rsvDate" jdbcType="TIMESTAMP" />
+    <result column="reserve_keep_time" property="rsvTime" jdbcType="INTEGER" />
+    <result column="parkLongitude" property="destinationLat" jdbcType="DECIMAL" />
+    <result column="parkLatitude" property="destinationLng" jdbcType="DECIMAL" />
+    <result column="reserveCharge" property="cost" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    reserveID, userID, parkID, reserve_start_time, reserve_keep_time, userCarID, parkPositionID, 
+    reserveCharge, create_time, last_modify_time
+  </sql>
+  <sql id="Book_Column_list">
+    reserveID, parkID,parkName,parkAddress,parkPositionID, reserve_start_time, reserve_keep_time, parkLongitude,  
+	parkLatitude, reserveCharge
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from parking_reservation
+    where reserveID = #{reserveid,jdbcType=VARCHAR}
+  </select>
+  <select id="myBook" resultMap="Books"  parameterType="java.lang.String">
+  select
+  <include refid="Book_Column_list"/>
+  from parking_reservation,parking_lot_info
+  where userID=#{userid,jdbcType=VARCHAR}
+  and parking_reservation.parkID=parking_lot_info.parkID
+  and reserve_finish_time>current_timestamp();
+  </select>
+  <select id="myHistoryBook" resultMap="Books" parameterType="java.lang.String">
+  select
+  <include refid="Book_Column_list"/>
+  from parking_reservation,parking_lot_info
+  where userID=#{userid,jdbcType=VARCHAR}
+  and parking_reservation.parkID=parking_lot_info.parkID
+  and current_timestamp()>reserve_finish_time ;
+  </select>
+  <update id="delay">
+  update parking_reservation
+  set reserve_start_time=#{reserveStartTime,jdbcType=TIMESTAMP} 
+  and reserve_finish_time=#{reserveFinishTime,jdbcType=TIMESTAMP}
+  where reserveID=#{rsvid,jdbcType=VARCHAR}
+  </update>
+  
+  <delete id="cancel" parameterType="java.lang.String" >
+    delete from parking_reservation
+    where reserveID = #{reserveid,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.pms.pojo.Reservation" >
+    insert into parking_reservation (reserveID, userID, parkID, 
+      reserve_start_time, reserve_keep_time, userCarID, 
+      parkPositionID, reserveCharge, create_time, 
+      last_modify_time)
+    values (#{reserveid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{parkid,jdbcType=VARCHAR}, 
+      #{reserveStartTime,jdbcType=TIMESTAMP}, #{reserveKeepTime,jdbcType=INTEGER}, #{usercarid,jdbcType=VARCHAR}, 
+      #{parkpositionid,jdbcType=VARCHAR}, #{reservecharge,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastModifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pms.pojo.Reservation" >
+    insert into parking_reservation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="reserveid != null" >
+        reserveID,
+      </if>
+      <if test="userid != null" >
+        userID,
+      </if>
+      <if test="parkid != null" >
+        parkID,
+      </if>
+      <if test="reserveStartTime != null" >
+        reserve_start_time,
+      </if>
+      <if test="reserveKeepTime != null" >
+        reserve_keep_time,
+      </if>
+      <if test="usercarid != null" >
+        userCarID,
+      </if>
+      <if test="parkpositionid != null" >
+        parkPositionID,
+      </if>
+      <if test="reservecharge != null" >
+        reserveCharge,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="reserveid != null" >
+        #{reserveid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="parkid != null" >
+        #{parkid,jdbcType=VARCHAR},
+      </if>
+      <if test="reserveStartTime != null" >
+        #{reserveStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reserveKeepTime != null" >
+        #{reserveKeepTime,jdbcType=INTEGER},
+      </if>
+      <if test="usercarid != null" >
+        #{usercarid,jdbcType=VARCHAR},
+      </if>
+      <if test="parkpositionid != null" >
+        #{parkpositionid,jdbcType=VARCHAR},
+      </if>
+      <if test="reservecharge != null" >
+        #{reservecharge,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pms.pojo.Reservation" >
+    update parking_reservation
+    <set >
+      <if test="userid != null" >
+        userID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="parkid != null" >
+        parkID = #{parkid,jdbcType=VARCHAR},
+      </if>
+      <if test="reserveStartTime != null" >
+        reserve_start_time = #{reserveStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reserveKeepTime != null" >
+        reserve_keep_time = #{reserveKeepTime,jdbcType=INTEGER},
+      </if>
+      <if test="usercarid != null" >
+        userCarID = #{usercarid,jdbcType=VARCHAR},
+      </if>
+      <if test="parkpositionid != null" >
+        parkPositionID = #{parkpositionid,jdbcType=VARCHAR},
+      </if>
+      <if test="reservecharge != null" >
+        reserveCharge = #{reservecharge,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where reserveID = #{reserveid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pms.pojo.Reservation" >
+    update parking_reservation
+    set userID = #{userid,jdbcType=VARCHAR},
+      parkID = #{parkid,jdbcType=VARCHAR},
+      reserve_start_time = #{reserveStartTime,jdbcType=TIMESTAMP},
+      reserve_keep_time = #{reserveKeepTime,jdbcType=INTEGER},
+      userCarID = #{usercarid,jdbcType=VARCHAR},
+      parkPositionID = #{parkpositionid,jdbcType=VARCHAR},
+      reserveCharge = #{reservecharge,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP}
+    where reserveID = #{reserveid,jdbcType=VARCHAR}
+  </update>
+</mapper>
