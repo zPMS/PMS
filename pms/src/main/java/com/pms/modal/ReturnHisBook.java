@@ -16,7 +16,7 @@ public class ReturnHisBook extends AbstractJson{
 		if(code==200)
 		{
 		setMessage("获取预约信息成功");
-		r=new JSONObject();
+		//r=new JSONObject();
 		r.put("code", getCode());
 		r.put("message", getMessage());
 		r.put("myBooks", historyBooks);
@@ -24,7 +24,7 @@ public class ReturnHisBook extends AbstractJson{
 		if(code==400)
 		{
 			setMessage("获取当前预约信息失败");
-			r=new JSONObject();
+			//r=new JSONObject();
 			r.put("code", getCode());
 			r.put("message", getMessage());
 		}

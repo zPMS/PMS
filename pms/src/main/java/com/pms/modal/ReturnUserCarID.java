@@ -14,7 +14,7 @@ public class ReturnUserCarID extends AbstractJson
 		if(code==200)
 		{
 			setMessage("返回成功");
-			r=new JSONObject();
+			//r=new JSONObject();
 			r.put("code", getCode());
 			r.put("message", getMessage());
 			r.put("userCarId", userCarID);
@@ -22,7 +22,7 @@ public class ReturnUserCarID extends AbstractJson
 		if(code==400)
 		{
 			setMessage("返回用户车牌信息失败");
-			r=new JSONObject();
+			//r=new JSONObject();
 			r.put("code", getCode());
 			r.put("message", getMessage());
 		}

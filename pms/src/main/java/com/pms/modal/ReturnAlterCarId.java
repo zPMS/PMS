@@ -14,14 +14,14 @@ public class ReturnAlterCarId extends AbstractJson{
 		if(code==200)
 		{
 			setMessage("修改成功");
-			r=new JSONObject();
+			//r=new JSONObject();
 			r.put("code", getCode());
 			r.put("message", getMessage());
 		}
 		if(code==400)
 		{
 			setMessage("修改用户车牌信息失败");
-			r=new JSONObject();
+			//r=new JSONObject();
 			r.put("code", getCode());
 			r.put("message", getMessage());
 		}

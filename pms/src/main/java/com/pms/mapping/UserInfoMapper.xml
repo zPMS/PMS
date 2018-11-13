@@ -21,6 +21,9 @@
     from user_info
     where userID = #{userid,jdbcType=VARCHAR}
   </select>
+  <select id="isRegister" resultType="boolean" parameterType="java.lang.String">
+  select 1 from user_info where userTel=#{userTel,jdbcType=VARCHAR} limit 1
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from user_info
     where userID = #{userid,jdbcType=VARCHAR}

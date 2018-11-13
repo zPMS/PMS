@@ -13,7 +13,7 @@ public class ReturnMyBook extends AbstractJson {
 	public void getStatus(int code)
 	{
 		setCode(code);
-		r=new JSONObject();
+		//r=new JSONObject();
 		if(code==200)
 		{
 		setMessage("获取预约信息成功");
@@ -24,7 +24,7 @@ public class ReturnMyBook extends AbstractJson {
 		if(code==400)
 		{
 			setMessage("获取当前预约信息失败");
-			r=new JSONObject();
+			//r=new JSONObject();
 			r.put("code", getCode());
 			r.put("message", getMessage());
 		}

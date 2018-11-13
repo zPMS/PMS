@@ -11,7 +11,7 @@ public class ReturnCancel extends AbstractJson {
 	public void getStatus(int code)
 	{
 		setCode(code);
-		r=new JSONObject();
+		//r=new JSONObject();
 		if(result!=0&&code==200)
 		{
 			setMessage("取消预约成功");

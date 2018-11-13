@@ -10,6 +10,7 @@ public interface UserInfoMapper {
     int insertSelective(UserInfo record);
 
     UserInfo selectByPrimaryKey(String userid);
+    boolean isRegister(String userTel);
 
     int updateByPrimaryKeySelective(UserInfo record);
 

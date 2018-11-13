@@ -17,16 +17,14 @@ import com.pms.modal.ReturnAddCarId;
 import com.pms.modal.ReturnAlterCarId;
 import com.pms.modal.ReturnUserCarID;
 import com.pms.pojo.CarInfo;
-import com.pms.service.AddCarIdService;
-import com.pms.service.GetCarIDService;
-import com.pms.service.AlterCarIDService;
+import com.pms.service.CarIdService;
 
 @Controller
 @RequestMapping("/car")
 public class CarInfoController 
 {
 	 @Resource
-	 private GetCarIDService carID;
+	 private CarIdService carIdService;
 	 
 	@RequestMapping("MyCarId")
 	public void getUserCarID(HttpServletRequest request,HttpServletResponse response) throws IOException 
@@ -34,15 +32,14 @@ public class CarInfoController
 		String phone=request.getParameter("userPhone");
 		PrintWriter out;
 		ReturnUserCarID myCarId=new ReturnUserCarID();
-		myCarId.setUserCarID(carID.getCarId(phone));
+		myCarId.setUserCarID(carIdService.getCarId(phone));
 		response.setContentType("Application/json");
 		response.setCharacterEncoding("utf-8");
 			myCarId.getStatus(response.getStatus());
 			out=response.getWriter();
 			out.print(myCarId.jsonToString());
 	}
-	 @Resource
-	 private AddCarIdService addCarId;
+	
 	@RequestMapping("AddCarId")
 	public void addCarID(HttpServletRequest request,HttpServletResponse response) throws IOException
 	{
@@ -55,7 +52,7 @@ public class CarInfoController
 		Timestamp time=Timestamp.valueOf(formate.format(date.getTime()));
 		car.setCreateTime(time);
 		car.setLastModifyTime(time);
-		addCarId.addCarId(car);
+		carIdService.addCarId(car);
 		response.setContentType("Application/json");
 		response.setCharacterEncoding("utf-8");
 		ReturnAddCarId r=new ReturnAddCarId();
@@ -63,12 +60,11 @@ public class CarInfoController
 		PrintWriter out=response.getWriter();
 		out.println(r.jsonToString());
 	}
-	 @Resource
-	 private AlterCarIDService alterCarId;
+	
 	 @RequestMapping("AlterCarId")
 		public void alterCarID(HttpServletRequest request,HttpServletResponse response) throws IOException
 		{
-		 	alterCarId.alterCarId(request.getParameter("userId"), request.getParameter("newCarId"), request.getParameter("oldCarId"));
+		 carIdService.alterCarId(request.getParameter("userId"), request.getParameter("newCarId"), request.getParameter("oldCarId"));
 		 	response.setContentType("Application/json");
 			response.setCharacterEncoding("utf-8");
 			ReturnAlterCarId r=new ReturnAlterCarId();

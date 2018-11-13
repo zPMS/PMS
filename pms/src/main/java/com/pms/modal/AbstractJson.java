@@ -4,7 +4,7 @@ import org.json.JSONObject;
 
 public abstract class AbstractJson {
 	
-	protected JSONObject r;
+	protected JSONObject r=new JSONObject();
 	public int getCode() {
 		return code;
 	}

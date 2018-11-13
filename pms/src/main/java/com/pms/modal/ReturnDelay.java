@@ -17,7 +17,7 @@ public class ReturnDelay extends AbstractJson{
 	public void getStatus(int code)
 	{
 		setCode(code);
-		r=new JSONObject();
+		//r=new JSONObject();
 		if(result!=0&&code==200)
 		{
 			setMessage("预约时间已更新");
